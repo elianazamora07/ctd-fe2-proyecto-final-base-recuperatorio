@@ -4,6 +4,13 @@ import { ESTADO_FETCH } from "./constants";
 import { obtenerCita } from "./citaAPI";
 import { ICita } from "./types";
 
+/*
+Aquí se puede identificar el principio SOLID de responsabilidad única ya que se hace
+la implementación de Redux para manejar el estado. Las responsabilidades de configuración de store, 
+creación de acciones, reducers y manejo del estado están separadas en archivos distintos, 
+lo cual sigue el principio al tener una única responsabilidad para cada función.
+*/
+
 export interface EstadoCita {
   data: ICita | null;
   estado: ESTADO_FETCH;
@@ -19,7 +26,6 @@ export const obtenerCitaAsync = createAsyncThunk(
   async (personaje: string) => {
     try {
       const cita = await obtenerCita(personaje);
-
       return cita;
     } catch (err) {
       throw err;
@@ -57,7 +63,7 @@ export const obtenerCitaDeLaAPI =
     dispatch(obtenerCitaAsync(personaje));
   };
 
-export const obtenerCitaDelEstado = (state: RootState) => state.cita.data;
-export const obtenerEstadoDelPedido = (state: RootState) => state.cita.estado;
+export const obtenerCitaDelEstado = (state: RootState) => state?.cita?.data;
+export const obtenerEstadoDelPedido = (state: RootState) => state?.cita.estado;
 
 export default citaSlice.reducer;

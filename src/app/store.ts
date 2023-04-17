@@ -1,9 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import noticiasReducer from "../features/news/noticiaSlice";
 import citaReducer from "../features/quote/citaSlice";
 
 export const store = configureStore({
   reducer: {
     cita: citaReducer,
+    noticias: noticiasReducer,
+
   },
 });
 

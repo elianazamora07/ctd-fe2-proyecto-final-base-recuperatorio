@@ -7,17 +7,8 @@ export const obtenerCita: (personaje?: string) => Promise<ICita> = async (
   if (personaje && parseInt(personaje)) {
     throw new Error("El nombre debe ser un texto");
   }
-
   const url = personaje ? `${API_URL}?character=${personaje}` : API_URL;
   const respuesta = await fetch(url);
   const [data] = await respuesta.json();
-
-  const dataNormalizada = {
-    cita: data.quote,
-    personaje: data.character,
-    imagen: data.image,
-    direccionPersonaje: data.characterDirection,
-  };
-
-  return dataNormalizada;
+  return data;
 };

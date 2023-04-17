@@ -2,20 +2,35 @@ export interface INoticias {
   id: number;
   titulo: string;
   descripcion: string;
-  fecha: Date;
+  fecha: number | string;
   esPremium: boolean;
   imagen: string;
+  source?: string;
 }
 
-const simularTiempoTranscurrido: (decrementMiliseconds: number) => Date = (
-  decrementMiliseconds
-) => {
-  let time = new Date();
-  time.setMilliseconds(time.getMilliseconds() - decrementMiliseconds);
-  return time;
+
+export const TextoPrimeraLetraMayuscula = (text: string) => {
+  return text
+    .split(" ")
+    .map((str) => {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    })
+    .join(" ");
 };
 
-const data = [
+export const simularTiempoTranscurrido: (
+  decrementMiliseconds: number
+) => number = (decrementMiliseconds) => {
+  const convertMilisecToMinutes = 1 / 60000;
+  const time = new Date().getMinutes();
+
+  const result = Math.abs(
+    Math.floor(time - decrementMiliseconds * convertMilisecToMinutes)
+  );
+  return result;
+};
+
+export const data = [
   {
     id: 1,
     titulo: "Los Simpson 'predijeron' escasez de combustible",
